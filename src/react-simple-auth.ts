@@ -1,7 +1,7 @@
 const sessionKey = 'session'
 
 export interface IProvider<T> {
-  buildAuthorizeUrl(): string
+  buildAuthorizeUrl(requestKey?: string): string
   extractError(redirectUrl: string): Error | undefined
   extractSession(redirectUrl: string): T
   validateSession(session: T): boolean
@@ -44,7 +44,7 @@ export const service: IAuthenticationService = {
       top: Math.floor(screen.height / 2 - height / 2)
     }
 
-    const oauthAuthorizeUrl = provider.buildAuthorizeUrl()
+    const oauthAuthorizeUrl = provider.buildAuthorizeUrl(requestKey)
     const windowOptionString = Object.entries(windowOptions)
       .map(([key, value]) => `${key}=${value}`)
       .join(',')
